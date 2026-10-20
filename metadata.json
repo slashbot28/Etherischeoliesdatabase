@@ -1,0 +1,6 @@
+{
+  "name": "Etherische Oliën Database",
+  "description": "Een overzichtelijke en interactieve database om uw verzameling etherische oliën te beheren, inclusief eigenschappen, voorraad, synergieën en toepassingen.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
