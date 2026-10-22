@@ -9,6 +9,7 @@ interface OilCardProps {
   onRatingChange: (id: string, newRating: number) => void;
   onStockChange: (id: string, newStock: EssentialOil["stock"]) => void;
   onFocus?: (oil: EssentialOil) => void;
+  onMakeRoomSpray?: (oil: EssentialOil) => void;
 }
 
 export default function OilCard({
@@ -18,6 +19,7 @@ export default function OilCard({
   onRatingChange,
   onStockChange,
   onFocus,
+  onMakeRoomSpray,
 }: OilCardProps) {
   // Stock status styles with floating indicator
   const stockIndicator = {
@@ -119,23 +121,39 @@ export default function OilCard({
           </h3>
 
           {/* Botanical Latin Name */}
-          <p className="text-xs text-slate-500 italic font-light tracking-wide mt-0.5">
+          <p className="text-sm text-slate-500 italic font-normal tracking-wide mt-0.5">
             {oil.botanicalName}
           </p>
         </div>
 
         {/* Dutch Description & Discreet 'Lees meer' */}
-        <div className="space-y-1.5">
-          <p className="text-xs text-slate-600 font-light leading-relaxed line-clamp-2">
+        <div className="space-y-2">
+          <p className="text-[13.5px] sm:text-sm text-slate-700 font-normal leading-relaxed line-clamp-3">
             {oil.description}
           </p>
-          <button
-            onClick={() => onFocus?.(oil)}
-            className="group/link text-[11px] font-medium text-slate-500 hover:text-amber-700 inline-flex items-center gap-1 transition-colors pt-0.5"
-          >
-            <span>Lees meer</span>
-            <ArrowRight className="w-3 h-3 transition-transform duration-300 group-hover/link:translate-x-0.5" strokeWidth={1.4} />
-          </button>
+          <div className="flex items-center justify-between pt-0.5">
+            <button
+              onClick={() => onFocus?.(oil)}
+              className="group/link text-xs font-semibold text-amber-700 hover:text-amber-900 inline-flex items-center gap-1.5 transition-colors"
+            >
+              <span>Lees meer</span>
+              <ArrowRight className="w-3.5 h-3.5 transition-transform duration-300 group-hover/link:translate-x-1" strokeWidth={1.6} />
+            </button>
+            {onMakeRoomSpray && (
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onMakeRoomSpray(oil);
+                }}
+                className="text-[11px] font-mono text-slate-700 bg-white/80 hover:bg-amber-500/15 border border-amber-500/30 hover:border-amber-500/50 px-2.5 py-1 rounded-full flex items-center gap-1 transition-all cursor-pointer shadow-2xs font-medium"
+                title={`Maak roomspray met ${oil.name}`}
+              >
+                <span>🧴</span>
+                <span>Roomspray</span>
+              </button>
+            )}
+          </div>
         </div>
 
         {/* Minimalist Floating Scent & Property Tags */}

@@ -1575,119 +1575,139 @@ export function getOilPhoto(oil: EssentialOil): string {
   const name = (oil.name || "").toLowerCase();
   const bot = (oil.botanicalName || "").toLowerCase();
   
-  // 1. Myrrh (Commiphora myrrha) - Sacred golden aromatic resin tears
+  // 1. Myrrh (Commiphora myrrha) - Cartoon illustration
   if (id.includes("myrrhe") || id.includes("myrrh") || name.includes("myrrhe") || name.includes("myrrh") || bot.includes("myrrha")) {
-    return "https://images.unsplash.com/photo-1547887537-6158d64c35b3?auto=format&fit=crop&q=80&w=800";
+    return "/images/myrrhe.jpg";
   }
   
-  // 2. Patchouli (Pogostemon cablin) - Earthy botanical patchouli leaves & oil
+  // 2. Patchouli (Pogostemon cablin) - Cartoon illustration
   if (id.includes("patchouli") || name.includes("patchouli") || bot.includes("patchouli") || bot.includes("cablin")) {
-    return "https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&q=80&w=800";
+    return "/images/patchouli.jpg";
   }
   
-  // 3. Wierook / Frankincense (Boswellia carterii) - Sacred golden resin tears & oil
+  // 3. Wierook / Frankincense (Boswellia carterii) - Cartoon illustration
   if (id.includes("wierook") || name.includes("wierook") || id.includes("frankincense") || name.includes("frankincense") || bot.includes("boswellia")) {
-    return "https://images.unsplash.com/photo-1602928321679-560bb453f190?auto=format&fit=crop&q=80&w=800";
+    return "/images/wierook.jpg";
   }
   
-  // 4. Jasmijn / Jasmine (Jasminum officinale) - Fragrant star-shaped white jasmine blossoms
+  // 4. Jasmijn / Jasmine (Jasminum officinale) - Cartoon illustration
   if (id.includes("jasmijn") || name.includes("jasmijn") || id.includes("jasmine") || name.includes("jasmine") || bot.includes("jasminum")) {
-    return "https://images.unsplash.com/photo-1606041008023-472dfb5e530f?auto=format&fit=crop&q=80&w=800";
+    return "/images/jasmijn.jpg";
   }
 
-  // 5. Lavendel / Lavender (Lavandula angustifolia) - Vibrant purple lavender blossoms in field
+  // 5. Lavendel / Lavender (Lavandula angustifolia) - Cartoon illustration
   if (id.includes("lavendel") || id.includes("lavender") || name.includes("lavendel") || name.includes("lavender") || bot.includes("lavandula")) {
-    return "https://images.unsplash.com/photo-1528183429752-a97d0bf99b5a?auto=format&fit=crop&q=80&w=800";
+    return "/images/lavendel.jpg";
   }
 
-  // 6. Roos / Rose (Rosa damascena) - Luxurious pink damask rose petals
+  // 6. Roos / Rose (Rosa damascena) - Cartoon illustration
   if (id.includes("roos") || id.includes("rose") || name.includes("roos") || name.includes("rose") || bot.includes("rosa")) {
-    return "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&q=80&w=800";
+    return "/images/roos.jpg";
   }
 
-  // 7. Ylang Ylang (Cananga odorata) - Tropical exotic floral essence
+  // 7. Ylang Ylang (Cananga odorata) - Cartoon illustration
   if (id.includes("ylang") || name.includes("ylang") || bot.includes("cananga")) {
-    return "https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&q=80&w=800";
+    return "/images/ylangylang.jpg";
   }
 
-  // 8. Bergamot (Citrus bergamia) - Green bergamot citrus fruit & peel
+  // 8. Bergamot (Citrus bergamia) - Cartoon illustration
   if (id.includes("bergamot") || name.includes("bergamot") || bot.includes("bergamia")) {
-    return "https://images.unsplash.com/photo-1611080626919-7cf5a9dbab5b?auto=format&fit=crop&q=80&w=800";
+    return "/images/bergamot.jpg";
   }
 
-  // 9. Citroen-Eucalyptus / Lemon Eucalyptus
+  // 9. Citroen-Eucalyptus / Lemon Eucalyptus - Cartoon illustration
   if (id.includes("citroeneuc") || id.includes("lemoneucalyptus") || name.includes("citroen-euc") || bot.includes("citriodora")) {
-    return "https://images.unsplash.com/photo-1519735777090-ec97162dc266?auto=format&fit=crop&q=80&w=800";
+    return "/images/citroen-eucalyptus.jpg";
   }
 
-  // 10. Sinaasappel / Sweet Orange / Tangerine (Citrus sinensis) - Fresh citrus slices
+  // 10. Sinaasappel / Sweet Orange / Tangerine (Citrus sinensis) - Cartoon illustration
   if (id.includes("sinaasappel") || id.includes("orange") || id.includes("tangerine") || name.includes("sinaasappel") || name.includes("orange") || name.includes("tangerine") || bot.includes("sinensis") || bot.includes("reticulata")) {
-    return "https://images.unsplash.com/photo-1582979512210-99b6a53386f9?auto=format&fit=crop&q=80&w=800";
+    return "/images/sinaasappel.jpg";
   }
 
-  // 11. Citroen / Lemon (Citrus limon) - Bright fresh yellow lemons
+  // 11. Citroen / Lemon (Citrus limon) - Cartoon illustration
   if (id.includes("lemon") || id.includes("citroen") || name.includes("lemon") || name.includes("citroen") || bot.includes("limon")) {
-    return "https://images.unsplash.com/photo-1590502593747-42a996133562?auto=format&fit=crop&q=80&w=800";
+    return "/images/citroen.jpg";
   }
 
-  // 12. Grapefruit (Citrus paradisi) - Fresh ruby pink grapefruit
+  // 12. Grapefruit (Citrus paradisi) - Cartoon illustration
   if (id.includes("grapefruit") || name.includes("grapefruit") || bot.includes("paradisi")) {
-    return "https://images.unsplash.com/photo-1577234286642-fc512a5f8f11?auto=format&fit=crop&q=80&w=800";
+    return "/images/grapefruit.jpg";
   }
 
-  // 13. Cederhout / Cedarwood (Cedrus atlantica) - Ancient aromatic cedar forest
+  // 13. Cederhout / Cedarwood (Cedrus atlantica) - Cartoon illustration
   if (id.includes("ceder") || id.includes("cedar") || name.includes("ceder") || name.includes("cedar") || bot.includes("cedrus") || bot.includes("cedrol")) {
-    return "https://images.unsplash.com/photo-1502082553048-f009c37129b9?auto=format&fit=crop&q=80&w=800";
+    return "/images/cederhout.jpg";
   }
 
-  // 14. Grove Den / Pine (Pinus sylvestris) - Crisp evergreen pine needles & cones
+  // 14. Grove Den / Pine (Pinus sylvestris) - Cartoon illustration
   if (id.includes("den") || id.includes("pine") || name.includes("den") || name.includes("pine") || bot.includes("pinus")) {
-    return "https://images.unsplash.com/photo-1542273917363-3b1817f69a2d?auto=format&fit=crop&q=80&w=800";
+    return "/images/groveden.jpg";
   }
 
-  // 15. Sandelhout / Sandalwood (Santalum album) - Sacred sandalwood essence
+  // 15. Sandelhout / Sandalwood (Santalum album) - Cartoon illustration
   if (id.includes("sandel") || id.includes("sandal") || name.includes("sandel") || name.includes("sandal") || bot.includes("santalum") || bot.includes("sandalore")) {
-    return "https://images.unsplash.com/photo-1616683693504-3ea7e9ad6fec?auto=format&fit=crop&q=80&w=800";
+    return "/images/sandelhout.jpg";
   }
 
-  // 16. Anijs / Star Anise (Pimpinella anisum / Illicium verum) - Star anise spice
+  // 15b. Cipres / Cypress - Cartoon illustration
+  if (id.includes("cipres") || id.includes("cypress") || name.includes("cipres") || name.includes("cypress") || bot.includes("cupressus")) {
+    return "/images/cipres.jpg";
+  }
+
+  // 15c. Vetiver - Cartoon illustration
+  if (id.includes("vetiver") || name.includes("vetiver") || bot.includes("zizanioides")) {
+    return "/images/vetiver.jpg";
+  }
+
+  // 15d. Copaiba - Cartoon illustration
+  if (id.includes("copaiba") || name.includes("copaiba") || bot.includes("copaifera")) {
+    return "/images/copaiba.jpg";
+  }
+
+  // 16. Anijs / Star Anise (Pimpinella anisum / Illicium verum) - Cartoon illustration
   if (id.includes("anijs") || id.includes("anise") || name.includes("anijs") || name.includes("anise") || bot.includes("anisum")) {
-    return "https://images.unsplash.com/photo-1596436889106-be35e843f974?auto=format&fit=crop&q=80&w=800";
+    return "/images/anijs.jpg";
   }
 
-  // 17. Basilicum / Basil (Ocimum basilicum) - Fresh sweet basil leaves
+  // 17. Basilicum / Basil (Ocimum basilicum) - Cartoon illustration
   if (id.includes("basil") || name.includes("basil") || bot.includes("ocimum")) {
-    return "https://images.unsplash.com/photo-1608686207856-001b95cf60ca?auto=format&fit=crop&q=80&w=800";
+    return "/images/basilicum.jpg";
   }
 
-  // 18. Rozemarijn / Rosemary (Rosmarinus officinalis) - Fresh rosemary sprigs
+  // 17b. Oregano - Cartoon illustration
+  if (id.includes("oregano") || name.includes("oregano") || bot.includes("origanum")) {
+    return "/images/oregano.jpg";
+  }
+
+  // 18. Rozemarijn / Rosemary (Rosmarinus officinalis) - Cartoon illustration
   if (id.includes("rozemarijn") || id.includes("rosemary") || name.includes("rozemarijn") || name.includes("rosemary") || bot.includes("rosmarinus")) {
-    return "https://images.unsplash.com/photo-1518235506717-e1ed3306a89b?auto=format&fit=crop&q=80&w=800";
+    return "/images/rozemarijn.jpg";
   }
 
-  // 19. Salie / Sage / Clary Sage (Salvia officinalis / Salvia sclarea)
+  // 19. Salie / Sage / Clary Sage (Salvia officinalis / Salvia sclarea) - Cartoon illustration
   if (id.includes("salie") || id.includes("sage") || name.includes("salie") || name.includes("sage") || bot.includes("salvia")) {
-    return "https://images.unsplash.com/photo-1596436889106-be35e843f974?auto=format&fit=crop&q=80&w=800";
+    return "/images/salie.jpg";
   }
 
-  // 20. Eucalyptus (Eucalyptus globulus) - Fresh eucalyptus foliage
+  // 20. Eucalyptus (Eucalyptus globulus) - Cartoon illustration
   if (id.includes("eucalyptus") || name.includes("eucalyptus") || bot.includes("eucalyptus")) {
-    return "https://images.unsplash.com/photo-1519735777090-ec97162dc266?auto=format&fit=crop&q=80&w=800";
+    return "/images/eucalyptus.jpg";
   }
 
-  // 21. Pepermunt / Peppermint / Mint / Spearmint (Mentha piperita) - Fresh mint leaves
+  // 21. Pepermunt / Peppermint / Mint / Spearmint (Mentha piperita) - Cartoon illustration
   if (id.includes("pepermunt") || id.includes("peppermint") || id.includes("mint") || name.includes("pepermunt") || name.includes("peppermint") || name.includes("munt") || bot.includes("mentha")) {
-    return "https://images.unsplash.com/photo-1628556270448-4d4e4148e1b1?auto=format&fit=crop&q=80&w=800";
+    return "/images/pepermunt.jpg";
   }
 
-  // 22. Kaneel / Cinnamon (Cinnamomum verum) - Rolled cinnamon sticks
+  // 22. Kaneel / Cinnamon (Cinnamomum verum) - Cartoon illustration
   if (id.includes("kaneel") || id.includes("cinnamon") || name.includes("kaneel") || name.includes("cinnamon") || bot.includes("cinnamomum")) {
-    return "https://images.unsplash.com/photo-1509358271058-acd22cc93898?auto=format&fit=crop&q=80&w=800";
+    return "/images/kaneel.jpg";
   }
 
-  // 23. Kruidnagel / Clove (Syzygium aromaticum) - Aromatic cloves
+  // 23. Kruidnagel / Clove (Syzygium aromaticum) - Cartoon illustration
   if (id.includes("kruidnagel") || id.includes("clove") || name.includes("kruidnagel") || name.includes("clove") || bot.includes("syzygium")) {
-    return "https://images.unsplash.com/photo-1596436889106-be35e843f974?auto=format&fit=crop&q=80&w=800";
+    return "/images/kruidnagel.jpg";
   }
 
   // 24. Zwarte Peper / Black Pepper (Piper nigrum) - Whole black peppercorns
@@ -1695,34 +1715,59 @@ export function getOilPhoto(oil: EssentialOil): string {
     return "https://images.unsplash.com/photo-1596040033229-a9821ebd058d?auto=format&fit=crop&q=80&w=800";
   }
 
-  // 25. Vanille / Vanilla (Vanilla planifolia) - Warm vanilla pods
+  // 25. Vanille / Vanilla (Vanilla planifolia) - Cartoon illustration
   if (id.includes("vanille") || id.includes("vanilla") || name.includes("vanille") || name.includes("vanilla") || bot.includes("vanilla")) {
-    return "https://images.unsplash.com/photo-1579546929518-9e396f3cc809?auto=format&fit=crop&q=80&w=800";
+    return "/images/vanille.jpg";
   }
 
-  // 26. Tea Tree (Melaleuca alternifolia)
+  // 26. Tea Tree (Melaleuca alternifolia) - Cartoon illustration
   if (id.includes("teatree") || id.includes("tea tree") || name.includes("tea tree") || name.includes("teatree") || bot.includes("melaleuca")) {
-    return "https://images.unsplash.com/photo-1532938911079-1b06ac7ceec7?auto=format&fit=crop&q=80&w=800";
+    return "/images/teatree.jpg";
   }
 
-  // 27. Kamille / Chamomile (Matricaria chamomilla)
+  // 27. Kamille / Chamomile (Matricaria chamomilla) - Cartoon illustration
   if (id.includes("chamomile") || id.includes("kamille") || name.includes("chamomile") || name.includes("kamille") || bot.includes("matricaria")) {
-    return "https://images.unsplash.com/photo-1508746829417-e6f548d8d6ed?auto=format&fit=crop&q=80&w=800";
+    return "/images/kamille.jpg";
   }
 
-  // 28. Lemongrass / Citronella (Cymbopogon)
-  if (id.includes("lemongrass") || id.includes("citronella") || name.includes("lemongrass") || name.includes("citronella") || bot.includes("cymbopogon")) {
-    return "https://images.unsplash.com/photo-1518235506717-e1ed3306a89b?auto=format&fit=crop&q=80&w=800";
+  // 28a. Lemongrass - Cartoon illustration
+  if (id.includes("lemongrass") || name.includes("lemongrass")) {
+    return "/images/lemongrass.jpg";
   }
 
-  // 29. Geranium (Pelargonium graveolens)
+  // 28b. Citronella (Cymbopogon) - Cartoon illustration
+  if (id.includes("citronella") || name.includes("citronella") || bot.includes("cymbopogon")) {
+    return "/images/citronella.jpg";
+  }
+
+  // 28c. Kamfer (Cinnamomum camphora) - Cartoon illustration
+  if (id.includes("kamfer") || id.includes("camphor") || name.includes("kamfer") || name.includes("camphor") || bot.includes("camphora")) {
+    return "/images/kamfer.jpg";
+  }
+
+  // 28d. Neroli (Citrus aurantium flos) - Cartoon illustration
+  if (id.includes("neroli") || name.includes("neroli")) {
+    return "/images/neroli.jpg";
+  }
+
+  // 28e. Helichrysum (Helichrysum italicum) - Cartoon illustration
+  if (id.includes("helichrysum") || name.includes("helichrysum") || name.includes("strobloem")) {
+    return "/images/helichrysum.jpg";
+  }
+
+  // 29. Geranium (Pelargonium graveolens) - Cartoon illustration
   if (id.includes("geranium") || name.includes("geranium") || bot.includes("pelargonium")) {
-    return "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&q=80&w=800";
+    return "/images/geranium.jpg";
   }
 
-  // 30. Leder / Leather
+  // 30. Leder / Leather - Cartoon illustration
   if (id.includes("leder") || id.includes("leather") || name.includes("leder") || name.includes("leather")) {
-    return "https://images.unsplash.com/photo-1550985543-f47f38aeee65?auto=format&fit=crop&q=80&w=800";
+    return "/images/leder.jpg";
+  }
+
+  // 30b. Wilde Muskus - Cartoon illustration
+  if (id.includes("wildemuskus") || name.includes("wilde muskus") || bot.includes("abelmoschus") || name.includes("muskus")) {
+    return "/images/wildemuskus.jpg";
   }
 
   // 31. Molecular synthetics (Iso E Super, Ambroxide, Cashmeran)
@@ -1756,4 +1801,683 @@ export function getOilPhoto(oil: EssentialOil): string {
   // Generic high-quality botanical essence fallback
   return "https://images.unsplash.com/photo-1602928321679-560bb453f190?auto=format&fit=crop&q=80&w=800";
 }
+
+/* ==========================================================================
+   ROOMSPRAY & GEURCOMBINATIES STUDIO MODELLEN & LOGICA
+   ========================================================================== */
+
+export interface RoomSprayIngredient {
+  oilId: string;
+  name: string;
+  ratio: number; // Relatieve verhouding (bv. 3, 2, 1)
+  noteType?: "Top" | "Midden" | "Basis";
+}
+
+export interface RoomSprayRecipe {
+  id: string;
+  name: string;
+  subtitle: string;
+  category: "Rust & Slaap" | "Focus & Werk" | "Fris & Zuiverend" | "Gezellig & Warm" | "Luxe & Hotel" | "Bloemig & Sensueel" | "Spa & Wellness";
+  targetRoom: string; // bv. Slaapkamer & Kussen, Woonkamer & Hal, etc.
+  description: string;
+  mood: string;
+  ingredients: RoomSprayIngredient[];
+  usageTip: string;
+  icon?: string;
+  bottleSizeMl?: number;
+}
+
+export interface OilPairing {
+  oilId: string;
+  name: string;
+  noteType: "Top" | "Midden" | "Basis";
+  category: string;
+  reason: string;
+  harmonyType: string; // bv. "Citrus-Hout Harmonie", "Aardend & Bloemig"
+}
+
+export interface RoomSprayCalculation {
+  bottleSizeMl: number;
+  alcoholMl: number;
+  alcoholPercent: number;
+  distilledWaterMl: number;
+  distilledWaterPercent: number;
+  totalOilDrops: number;
+  totalOilMl: number;
+  totalOilPercent: number;
+  ingredients: {
+    oilId: string;
+    name: string;
+    drops: number;
+    ratio: number;
+    noteType?: "Top" | "Midden" | "Basis";
+  }[];
+}
+
+/**
+ * Populaire en beproefde roomspray geurcombinaties.
+ * Elke formule is gebalanceerd in top-, midden- en basisnoten voor optimale diffusie en geurpersistentie.
+ */
+export const POPULAR_ROOM_SPRAYS: RoomSprayRecipe[] = [
+  {
+    id: "luxe-hotel",
+    name: "Luxe 5-Sterren Hotel Lobby",
+    subtitle: "Verfijnd, warm & uitnodigend boetiekhotel akkoord",
+    category: "Luxe & Hotel",
+    targetRoom: "Inkomhal & Woonkamer",
+    description: "Een elegante signatuurgeur die meteen een gevoel van exclusieve gastvrijheid en serene weelde wekt. Frisse bergamot wordt gedragen door een warme houtbasis met een zweem van zachte vanille.",
+    mood: "Gastvrij, chic, verwarmend en luxueus",
+    icon: "✨",
+    usageTip: "Spray 2 tot 3 maal in de inkomhal en op stoffen gordijnen om bezoekers te verwelkomen met een verfijnde geurbeleving.",
+    ingredients: [
+      { oilId: "nat-bergamot", name: "Bergamot", ratio: 4, noteType: "Top" },
+      { oilId: "nat-cederhout", name: "Cederhout", ratio: 3, noteType: "Basis" },
+      { oilId: "nat-vanille", name: "Vanille", ratio: 2, noteType: "Basis" },
+      { oilId: "nat-rozemarijn", name: "Rozemarijn", ratio: 1, noteType: "Midden" }
+    ]
+  },
+  {
+    id: "slaap-dromen",
+    name: "Diepe Nachtrust & Kussenspray",
+    subtitle: "Kalmerende lavendel, zachte sinaasappel & aards cederhout",
+    category: "Rust & Slaap",
+    targetRoom: "Slaapkamer & Bedlinnen",
+    description: "De ultieme rustgevende slaapformule. Lavendel verlaagt het stressniveau, zoete sinaasappel stilt piekergedachten en cederhout brengt een veilige, grondende basis.",
+    mood: "Diepe kalmte, ontspanning en zachtheid",
+    icon: "🌙",
+    usageTip: "Spray 15 minuten voor het slapengaan op kussens en lakens vanaf 30 cm afstand voor een rustgevende cocon.",
+    ingredients: [
+      { oilId: "nat-lavendel", name: "Lavendel (Bio)", ratio: 5, noteType: "Midden" },
+      { oilId: "nat-cederhout", name: "Cederhout", ratio: 3, noteType: "Basis" },
+      { oilId: "nat-sinaasappel", name: "Sinaasappel", ratio: 2, noteType: "Top" }
+    ]
+  },
+  {
+    id: "fris-linnen",
+    name: "Fris Gewassen Linnen & Zonneschijn",
+    subtitle: "Knapperig schoon, natuurlijk wasgoed-gevoel",
+    category: "Fris & Zuiverend",
+    targetRoom: "Woonkamer, Slaapkamer & Dressing",
+    description: "Laat je interieur ruiken alsof het net grondig is schoongemaakt en het linnengoed buiten in de frisse zeewind heeft gedroogd. Elimineert muffe luchtjes zonder synthetische parfums.",
+    mood: "Kraakhelder, verkwikkend en puur",
+    icon: "🧺",
+    usageTip: "Ideaal om sofa's, spreien en kledingkasten mee te nevelen voor een onmiddellijke opfrisbeurt.",
+    ingredients: [
+      { oilId: "nat-lemongrass", name: "Lemongrass", ratio: 4, noteType: "Top" },
+      { oilId: "nat-lavendel", name: "Lavendel (Bio)", ratio: 4, noteType: "Midden" },
+      { oilId: "nat-eucalyptus", name: "Eucalyptus", ratio: 2, noteType: "Top" }
+    ]
+  },
+  {
+    id: "citrus-sunrise",
+    name: "Zonnige Citrus Sunrise",
+    subtitle: "Bruisende sinaasappel, grapefruit & pepermunt",
+    category: "Focus & Werk",
+    targetRoom: "Keuken, Eetruimte & Hal",
+    description: "Een explosie van vrolijke zonnekracht! De frisse zuren van citrusfruit neutraliseren kookgeurtjes en tillen de sfeer in huis direct naar een zomers en energiek niveau.",
+    mood: "Opwekkend, vrolijk, optimistisch en helder",
+    icon: "☀️",
+    usageTip: "Spray 's ochtends in de woonkamer of keuken om fris en vol motivatie aan de dag te beginnen.",
+    ingredients: [
+      { oilId: "nat-sinaasappel", name: "Sinaasappel", ratio: 4, noteType: "Top" },
+      { oilId: "nat-grapefruit", name: "Grapefruit", ratio: 3, noteType: "Top" },
+      { oilId: "nat-bergamot", name: "Bergamot", ratio: 2, noteType: "Top" },
+      { oilId: "nat-pepermunt", name: "Pepermunt", ratio: 1, noteType: "Top" }
+    ]
+  },
+  {
+    id: "bosbad-dennen",
+    name: "Zuiverend Bosbad (Shinrin-Yoku)",
+    subtitle: "Frisse dennennaalden, ceder & alpenlucht",
+    category: "Fris & Zuiverend",
+    targetRoom: "Woonkamer & Badkamer",
+    description: "Brengt de zuivere, regenererende kracht van een oud naaldbos naar binnen. Opent direct de luchtwegen, zuivert de lucht van microben en geeft het gevoel van een wandeling door ochtenddauw.",
+    mood: "Natuurlijk, ademruimte gevend en zuiver",
+    icon: "🌲",
+    usageTip: "Uitstekend tijdens herfst en winter of wanneer iemand in huis behoefte heeft aan schone, vrije luchtwegen.",
+    ingredients: [
+      { oilId: "nat-groveden", name: "Grove Den", ratio: 4, noteType: "Midden" },
+      { oilId: "nat-cederhout", name: "Cederhout", ratio: 3, noteType: "Basis" },
+      { oilId: "nat-eucalyptus", name: "Eucalyptus", ratio: 2, noteType: "Top" },
+      { oilId: "nat-citroeneuc", name: "Citroen-Euc.", ratio: 1, noteType: "Top" }
+    ]
+  },
+  {
+    id: "zen-jasmijn",
+    name: "Zen Tempeltuin & Witte Bloesem",
+    subtitle: "Betoverende jasmijn, bergamot & sandelhout",
+    category: "Bloemig & Sensueel",
+    targetRoom: "Woonkamer & Leeshoek",
+    description: "Een verheven Oosterse bloementuin in volle bloei. De kostbare jasmijnbloesem vloeit harmonieus samen met crèmig sandelhout tot een zachte, tijdloos elegante ambiance.",
+    mood: "Sereniteitsvol, liefdevol, ontspannen en zacht",
+    icon: "🌸",
+    usageTip: "Heerlijk om te verstuiven bij theemomenten, tijdens het lezen van een goed boek of bij rustige gesprekken.",
+    ingredients: [
+      { oilId: "nat-bergamot", name: "Bergamot", ratio: 4, noteType: "Top" },
+      { oilId: "nat-jasmijn", name: "Jasmijn", ratio: 3, noteType: "Midden" },
+      { oilId: "nat-sandelhout", name: "Sandelhout", ratio: 3, noteType: "Basis" }
+    ]
+  },
+  {
+    id: "knusse-haard",
+    name: "Knusse Haard & Warme Specerijen",
+    subtitle: "Rijke sinaasappel, kaneel, vanille & kruidnagel",
+    category: "Gezellig & Warm",
+    targetRoom: "Woonkamer & Eetkamer",
+    description: "Het ultieme gevoel van thuiskomen. Warme specerijen roepen herinneringen op aan kruidige thee, open haarden en gezellige familieavonden tijdens koude dagen.",
+    mood: "Geborgenheid, knus, warm en troostend",
+    icon: "🍂",
+    usageTip: "Spray 2 keer in het midden van de woonkamer zodra de avond valt voor directe gezelligheid.",
+    ingredients: [
+      { oilId: "nat-sinaasappel", name: "Sinaasappel", ratio: 5, noteType: "Top" },
+      { oilId: "nat-kaneel", name: "Kaneel", ratio: 2, noteType: "Midden" },
+      { oilId: "nat-vanille", name: "Vanille", ratio: 2, noteType: "Basis" },
+      { oilId: "nat-kruidnagel", name: "Kruidnagel", ratio: 1, noteType: "Basis" }
+    ]
+  },
+  {
+    id: "focus-mind",
+    name: "Mentale Focus & Scherpzinnigheid",
+    subtitle: "Scherpe pepermunt, rozemarijn & kruidige basilicum",
+    category: "Focus & Werk",
+    targetRoom: "Studeerkamer & Thuiswerkplek",
+    description: "Wetenschappelijk bewezen geurtonen om de cerebrale doorbloeding te stimuleren en vermoeidheid naar de achtergrond te verdrijven. Maakt het hoofd helder en verbetert geheugenfocus.",
+    mood: "Scherp, alert, geconcentreerd en fris",
+    icon: "💡",
+    usageTip: "Spray omstreeks 14:00 uur over je werkplek om een middagdipje te voorkomen en geconcentreerd door te werken.",
+    ingredients: [
+      { oilId: "nat-pepermunt", name: "Pepermunt", ratio: 4, noteType: "Top" },
+      { oilId: "nat-rozemarijn", name: "Rozemarijn", ratio: 4, noteType: "Midden" },
+      { oilId: "nat-basilicum", name: "Basilicum", ratio: 2, noteType: "Midden" }
+    ]
+  },
+  {
+    id: "tempel-wierook",
+    name: "Sacrale Meditatie & Wierook",
+    subtitle: "Eeuwenoude wierook, myrrhe & cederhout",
+    category: "Spa & Wellness",
+    targetRoom: "Meditatie- & Yogaruimte",
+    description: "Een mystieke compositie die al duizenden jaren wordt gewaardeerd in tempels. Brengt de ademhaling omlaag, ontspant de geest en schept een sacrale sfeer voor innerlijke verstilling.",
+    mood: "Grondend, gewijd, diepzinnig en rustig",
+    icon: "🕯️",
+    usageTip: "Nevel lichtjes rond je yogamat of meditatiekussen vóór de sessie begint om een serene focusruimte te creëren.",
+    ingredients: [
+      { oilId: "nat-wierook", name: "Wierook", ratio: 4, noteType: "Basis" },
+      { oilId: "nat-myrrhe", name: "Myrrhe", ratio: 3, noteType: "Basis" },
+      { oilId: "nat-sinaasappel", name: "Sinaasappel", ratio: 2, noteType: "Top" },
+      { oilId: "nat-cederhout", name: "Cederhout", ratio: 1, noteType: "Basis" }
+    ]
+  },
+  {
+    id: "spa-eucalyptus",
+    name: "Scandinavische Spa & Eucalyptus Sauna",
+    subtitle: "Intense eucalyptus, pepermunt & tea tree",
+    category: "Spa & Wellness",
+    targetRoom: "Badkamer & Wellness",
+    description: "Transformeer je badkamer in een luxe Finse wellness sauna. De dampende kruidenaroma's verhelderen de zintuigen en zorgen voor een weldadig zuiverende nevel.",
+    mood: "Revitaliserend, zuiverend en verfrissend",
+    icon: "🧖",
+    usageTip: "Spray 2 keer tegen de warme wand van de douchecabine net voordat je instapt voor een verkwikkende stoomsessie.",
+    ingredients: [
+      { oilId: "nat-eucalyptus", name: "Eucalyptus", ratio: 5, noteType: "Top" },
+      { oilId: "nat-pepermunt", name: "Pepermunt", ratio: 2, noteType: "Top" },
+      { oilId: "nat-teatree", name: "Tea Tree", ratio: 2, noteType: "Midden" },
+      { oilId: "nat-lavendel", name: "Lavendel (Bio)", ratio: 1, noteType: "Midden" }
+    ]
+  },
+  {
+    id: "velvet-rose",
+    name: "Fluwelen Rozentuin (Velvet Rose)",
+    subtitle: "Rijke roos, exotische ylang ylang & sensuele patchouli",
+    category: "Bloemig & Sensueel",
+    targetRoom: "Slaapkamer & Dressing",
+    description: "Een weelderig parfumakkoord van romantische bloesems en warme aardse tonen. Verzacht spanningen in het hart en creëert een intieme, verleidelijke ambiance.",
+    mood: "Romantisch, zachtmoedig, zwoel en harmonieus",
+    icon: "🌹",
+    usageTip: "Nevel zachtjes over kussens of gordijnen voor een verleidelijke en luxe slaapkamersfeer.",
+    ingredients: [
+      { oilId: "nat-bergamot", name: "Bergamot", ratio: 3, noteType: "Top" },
+      { oilId: "nat-roos", name: "Roos", ratio: 3, noteType: "Midden" },
+      { oilId: "nat-ylangylang", name: "Ylang Ylang", ratio: 2, noteType: "Midden" },
+      { oilId: "nat-patchouli", name: "Patchouli", ratio: 2, noteType: "Basis" }
+    ]
+  },
+  {
+    id: "stress-relief",
+    name: "Anti-Stress & Harmonieuze Adem",
+    subtitle: "Zachte lavendel, zoete sinaasappel, salie & cederhout",
+    category: "Rust & Slaap",
+    targetRoom: "Woonkamer & Slaapkamer",
+    description: "Speciaal samengesteld om het overprikkelde zenuwstelsel gerust te stellen. Helpt fysieke spierspanning los te laten en brengt harmonie in een hectische dag.",
+    mood: "Troostend, kalmerend en harmoniserend",
+    icon: "🕊️",
+    usageTip: "Spray over de zithoek na een drukke werkdag om samen rustig tot bezinning te komen.",
+    ingredients: [
+      { oilId: "nat-lavendel", name: "Lavendel (Bio)", ratio: 4, noteType: "Midden" },
+      { oilId: "nat-sinaasappel", name: "Sinaasappel", ratio: 3, noteType: "Top" },
+      { oilId: "nat-salie", name: "Salie", ratio: 2, noteType: "Midden" },
+      { oilId: "nat-cederhout", name: "Cederhout", ratio: 1, noteType: "Basis" }
+    ]
+  },
+  {
+    id: "aards-mysterie",
+    name: "Bohemian Amber & Hout",
+    subtitle: "Diepe patchouli, romig sandelhout & zoete sinaasappel",
+    category: "Gezellig & Warm",
+    targetRoom: "Woonkamer, Bibliotheek & Salon",
+    description: "Een rijk, tijdloos geurboeket dat doet denken aan warme bibliotheken, antieke meubels en Oosterse bazaars. Geeft karakter en zwoele diepte aan elke ruimte.",
+    mood: "Warm, aards, mystiek en karaktervol",
+    icon: "🪵",
+    usageTip: "Perfect voor houten interieurs, leeshoeken en 's avonds bij warm kaarslicht.",
+    ingredients: [
+      { oilId: "nat-sinaasappel", name: "Sinaasappel", ratio: 3, noteType: "Top" },
+      { oilId: "nat-patchouli", name: "Patchouli", ratio: 3, noteType: "Basis" },
+      { oilId: "nat-sandelhout", name: "Sandelhout", ratio: 3, noteType: "Basis" },
+      { oilId: "nat-zwartepeper", name: "Zwarte Peper", ratio: 1, noteType: "Basis" }
+    ]
+  },
+  {
+    id: "zomer-mojito",
+    name: "Zomerse Mojito & Verfrissing",
+    subtitle: "Bruisende munt, citroen & lemongrass",
+    category: "Fris & Zuiverend",
+    targetRoom: "Keuken, Terras & Gang",
+    description: "Alsof je op een zonovergoten terras zit met een vers glas ijswater en munt. Verjaagt warmte, zware lucht en vervelende insecten met een verkoelende frisheid.",
+    mood: "IJskoud verfrissend, levendig en helder",
+    icon: "🍃",
+    usageTip: "Ideaal tijdens hete zomerdagen of bij open deuren om insecten op afstand te houden.",
+    ingredients: [
+      { oilId: "nat-pepermunt", name: "Pepermunt", ratio: 4, noteType: "Top" },
+      { oilId: "nat-lemongrass", name: "Lemongrass", ratio: 3, noteType: "Top" },
+      { oilId: "nat-bergamot", name: "Bergamot", ratio: 3, noteType: "Top" }
+    ]
+  }
+];
+
+/**
+ * Berekent de exacte verhoudingen voor een roomspray op basis van het flesformaat:
+ * - Alcohol (70% - 96% of parfumeursalcohol): 25% van het volume (lost oliën op, conserveert, verdampt snel zonder vlekken)
+ * - Etherische oliën: 1.5% (subtiel), 2.5% (gebalanceerd) of 3.5% (intens)
+ * - Gedestilleerd water: het restant tot de hals van het flesje (~72.5%)
+ */
+export function calculateRoomSpray(
+  bottleSizeMl: number,
+  intensity: "subtiel" | "gebalanceerd" | "krachtig" = "gebalanceerd",
+  selectedOils: { id: string; name: string; ratio: number; noteType?: "Top" | "Midden" | "Basis" }[]
+): RoomSprayCalculation {
+  const safeSize = Math.max(10, bottleSizeMl);
+
+  // Concentraties: subtiel = ~1.5% (~3 druppels per 10ml), gebalanceerd = ~2.5% (~5 dr/10ml), krachtig = ~3.5% (~7 dr/10ml)
+  const dropsMultiplier = intensity === "subtiel" ? 0.3 : intensity === "krachtig" ? 0.7 : 0.5;
+  const targetTotalDrops = Math.max(selectedOils.length, Math.round(safeSize * dropsMultiplier));
+
+  // Alcohol: exact 25% van het flesvolume
+  const alcoholMl = Number((safeSize * 0.25).toFixed(1));
+  const alcoholPercent = 25;
+
+  // 1 ml etherische olie ≈ 20 druppels (1 druppel ≈ 0.05 ml)
+  const totalOilMl = Number((targetTotalDrops * 0.05).toFixed(2));
+  const totalOilPercent = Number(((totalOilMl / safeSize) * 100).toFixed(1));
+
+  // Gedestilleerd water vult het restant aan
+  const distilledWaterMl = Number(Math.max(0, safeSize - alcoholMl - totalOilMl).toFixed(1));
+  const distilledWaterPercent = Number(((distilledWaterMl / safeSize) * 100).toFixed(1));
+
+  // Verdeel druppels per olie over de relatieve ratio's
+  const totalRatios = selectedOils.reduce((sum, o) => sum + (o.ratio || 1), 0) || 1;
+  let remainingDrops = targetTotalDrops;
+
+  const ingredientsWithDrops = selectedOils.map((oil, idx) => {
+    if (idx === selectedOils.length - 1) {
+      // Laatste olie krijgt restant zodat totaal exact klopt
+      const drops = Math.max(1, remainingDrops);
+      return {
+        oilId: oil.id,
+        name: oil.name,
+        drops,
+        ratio: oil.ratio || 1,
+        noteType: oil.noteType
+      };
+    }
+    const computedDrops = Math.max(1, Math.round(((oil.ratio || 1) / totalRatios) * targetTotalDrops));
+    remainingDrops -= computedDrops;
+    return {
+      oilId: oil.id,
+      name: oil.name,
+      drops: computedDrops,
+      ratio: oil.ratio || 1,
+      noteType: oil.noteType
+    };
+  });
+
+  return {
+    bottleSizeMl: safeSize,
+    alcoholMl,
+    alcoholPercent,
+    distilledWaterMl,
+    distilledWaterPercent,
+    totalOilDrops: targetTotalDrops,
+    totalOilMl,
+    totalOilPercent,
+    ingredients: ingredientsWithDrops
+  };
+}
+
+/**
+ * Curated pairings mapping voor bekende etherische oliën.
+ * Voor elke olie: ideale harmonische partners met geurverklaring.
+ */
+const CURATED_OIL_PAIRINGS: Record<string, { partnerNames: string[]; reasons: Record<string, string>; harmonyType: string }> = {
+  "lavendel": {
+    partnerNames: ["Bergamot", "Sinaasappel", "Cederhout", "Ylang Ylang", "Rozemarijn", "Vanille", "Grove Den"],
+    reasons: {
+      "Bergamot": "Creëert een verfijnde, zonnige rustgevendheid zonder loomheid.",
+      "Sinaasappel": "Maakt de lavendel zoeter, warmer en vriendelijker voor kinderen.",
+      "Cederhout": "Grondt de bloemige lavendel met warme houtdiepte voor diepe slaap.",
+      "Rozemarijn": "Klassieke Provençaalse kruidenharmonie; zuivert het hoofd.",
+      "Vanille": "Geeft een knusse, zachte balsemachtige noot aan de lavendel.",
+      "Grove Den": "Brengt een alpine berggevoel; zuivert en ontspant de adem."
+    },
+    harmonyType: "Bloemig-Kruidige Rust & Gronding"
+  },
+  "sinaasappel": {
+    partnerNames: ["Kaneel", "Cederhout", "Kruidnagel", "Vanille", "Lavendel", "Patchouli", "Wierook"],
+    reasons: {
+      "Kaneel": "Het ultieme warme herfst- en winterakkoord, gezellig en knus.",
+      "Cederhout": "Combineert frisse zoetheid met mannelijke houtachtige elegantie.",
+      "Kruidnagel": "Geeft een pittig, feestelijk en verwarmend karakter aan de citrus.",
+      "Vanille": "Romige sinaasappeltoets, doet denken aan luxe bakkersaroma's.",
+      "Patchouli": "Rijk bohemian contrast tussen vrolijke citrus en donkere aarde.",
+      "Wierook": "Heilige warmte; Sinaasappel brengt licht in de diepe harsgeur."
+    },
+    harmonyType: "Zonnige Citrus-Warmte & Hout"
+  },
+  "bergamot": {
+    partnerNames: ["Lavendel", "Jasmijn", "Cederhout", "Sandelhout", "Patchouli", "Rozemarijn", "Neroli"],
+    reasons: {
+      "Lavendel": "Luxe hotelkwaliteit; kalmeert stress en brengt elegantie.",
+      "Jasmijn": "Heerlijk bloemig en verheven; de basis van vele nicheparfums.",
+      "Cederhout": "Verfijnd houtakkoord met aristocratische Earl Grey toets.",
+      "Sandelhout": "Zacht, romig en warm met een sprankelende citrusopening.",
+      "Patchouli": "Chypre-akkoord: tijdloze klassieke parfumverhouding."
+    },
+    harmonyType: "Verheven Citrus-Chypre Harmonie"
+  },
+  "cederhout": {
+    partnerNames: ["Lavendel", "Sinaasappel", "Bergamot", "Wierook", "Grove Den", "Rozemarijn", "Patchouli"],
+    reasons: {
+      "Lavendel": "Verlaagt spierspanning en brengt een solide aardende basis.",
+      "Sinaasappel": "Verfrist het droge hout met vrolijke zonnekracht.",
+      "Wierook": "Mediteerakkoord; verdiept de ademhaling en centreert de geest.",
+      "Grove Den": "Echt naaldwoud-effect; robuust, mannelijk en fris groen.",
+      "Rozemarijn": "Heldere bossfeer; stimuleert creativiteit en alertheid."
+    },
+    harmonyType: "Houtachtig Fixatief & Gronding"
+  },
+  "pepermunt": {
+    partnerNames: ["Rozemarijn", "Eucalyptus", "Citroen", "Lavendel", "Lemongrass", "Grapefruit"],
+    reasons: {
+      "Rozemarijn": "Bewezen concentratiebooster; maakt het hoofd vlijmscherp.",
+      "Eucalyptus": "Maximale ademruimte; verlost van verstopte luchtwegen.",
+      "Citroen": "Verkwikkende frisheid; verdrijft zware of bedompte geuren.",
+      "Lavendel": "Contrast tussen ijskoud menthol en warme bloemigheid; verzacht hoofdpijn.",
+      "Lemongrass": "Exotische frisheid; verjaagt muggen en brengt energie."
+    },
+    harmonyType: "IJskoud Verfrissend & Mentaal Focus"
+  },
+  "rozemarijn": {
+    partnerNames: ["Pepermunt", "Lavendel", "Cederhout", "Citroen", "Basilicum", "Grove Den"],
+    reasons: {
+      "Pepermunt": "Verhoogt alertheid en focus tijdens studeren en werken.",
+      "Lavendel": "Kruidige wellnessbalans; brengt helderheid zonder stress.",
+      "Cederhout": "Aards en krachtig; geeft een kruidige bosgeur aan je kantoor.",
+      "Citroen": "Verfrissende opruimer voor keuken en werkruimtes.",
+      "Basilicum": "Kruidige harmonie; ondersteunt het denkvermogen."
+    },
+    harmonyType: "Stimulerend Kruidig & Hersenactivatie"
+  },
+  "eucalyptus": {
+    partnerNames: ["Pepermunt", "Grove Den", "Tea Tree", "Lavendel", "Citroen-Euc.", "Cederhout"],
+    reasons: {
+      "Pepermunt": "De klassieke saunageur; opent de neus en verkoelt de lucht.",
+      "Grove Den": "Zuiverende boslucht; ideaal voor de herfst en winter.",
+      "Tea Tree": "Sterkste antibacteriële en antivirale luchtzuivering.",
+      "Lavendel": "Verzacht de scherpe menthol en maakt de spray kindvriendelijker."
+    },
+    harmonyType: "Luchtwegen & Luchtzuivering"
+  },
+  "wierook": {
+    partnerNames: ["Myrrhe", "Sinaasappel", "Cederhout", "Sandelhout", "Lavendel", "Roos"],
+    reasons: {
+      "Myrrhe": "De oudste spirituele combinatie ter wereld; heilig en diep grondend.",
+      "Sinaasappel": "Brengt licht en warmte in de sacrale balsem.",
+      "Cederhout": "Versterkt het meditatieve karakter met stevig hout.",
+      "Sandelhout": "Zachte, fluweelachtige wierookmist voor innerlijke stilte.",
+      "Roos": "Hartverwarmend, troostend en spiritueel verheffend."
+    },
+    harmonyType: "Sacraal Hars & Meditatieve Gronding"
+  },
+  "myrrhe": {
+    partnerNames: ["Wierook", "Patchouli", "Sinaasappel", "Sandelhout", "Lavendel"],
+    reasons: {
+      "Wierook": "Onovertroffen diepgang en spirituele rust.",
+      "Patchouli": "Rijke, donkere aardenoot die urenlang in de kamer blijft hangen.",
+      "Sinaasappel": "Verzacht de bittere rokerigheid van de hars met zachte citrus.",
+      "Sandelhout": "Balsemachtige luxe; rustgevend voor de zintuigen."
+    },
+    harmonyType: "Diepe Balsem & Aardse Verdieping"
+  },
+  "jasmijn": {
+    partnerNames: ["Bergamot", "Sandelhout", "Sinaasappel", "Roos", "Ylang Ylang", "Vanille"],
+    reasons: {
+      "Bergamot": "Verrijkt de zoete bloesem met sprankelende citrusfrisheid.",
+      "Sandelhout": "Draagt de bedwelmende bloem met zachte, romige houtdiepte.",
+      "Sinaasappel": "Maakt de bloemengeur speelser, zonniger en toegankelijker.",
+      "Vanille": "Sensuele, warme zoetheid voor een verleidelijk parfum."
+    },
+    harmonyType: "Weelderig Bloemig & Sensueel"
+  },
+  "roos": {
+    partnerNames: ["Patchouli", "Bergamot", "Sandelhout", "Lavendel", "Jasmijn", "Wierook"],
+    reasons: {
+      "Patchouli": "Klassiek nicheparfum-akkoord (chypre); donker aards ontmoet fluwelen roos.",
+      "Bergamot": "Verfrist het zware honingachtige karakter van rozenblaadjes.",
+      "Sandelhout": "Romig en warm; versterkt het hartopenende gevoel van de roos.",
+      "Wierook": "Mystieke, koninklijke combinatie; troostend bij emotioneel verdriet."
+    },
+    harmonyType: "Koninklijk Bloemig & Emotioneel Herstel"
+  },
+  "patchouli": {
+    partnerNames: ["Sinaasappel", "Roos", "Bergamot", "Cederhout", "Vanille", "Sandelhout"],
+    reasons: {
+      "Sinaasappel": "De ultieme match: vrolijke zoete citrus verzacht de donkere aarde.",
+      "Roos": "Sensueel, romantisch en aristocratisch parfumakkoord.",
+      "Bergamot": "Chique chypre-gevoel; complex en persistent.",
+      "Cederhout": "Diepe bosgrond; stoer, warm en rustgevend.",
+      "Vanille": "Maakt de patchouli fluweelzacht en chocolade-achtig warm."
+    },
+    harmonyType: "Bohemian Aards & Mystieke Fixatie"
+  },
+  "sandelhout": {
+    partnerNames: ["Jasmijn", "Bergamot", "Roos", "Wierook", "Ylang Ylang", "Patchouli"],
+    reasons: {
+      "Jasmijn": "Crème-achtige bloemenweelde; tijdloos en rustgevend.",
+      "Bergamot": "Zacht hout ontmoet heldere citrusopening.",
+      "Roos": "Harmonieert het hart en brengt luxueuze warmte in de kamer.",
+      "Wierook": "Ideaal voor meditatie, gebed en ademhalingsoefeningen."
+    },
+    harmonyType: "Romig Hout & Subtiele Luxe"
+  },
+  "ylangylang": {
+    partnerNames: ["Bergamot", "Sinaasappel", "Patchouli", "Sandelhout", "Lavendel"],
+    reasons: {
+      "Bergamot": "Temt de intense tropische zoetheid met frisse Earl Grey accenten.",
+      "Sinaasappel": "Vrolijk eilandgevoel vol sensualiteit en optimisme.",
+      "Patchouli": "Diepe Oosterse verleiding; ideaal voor intieme avonden.",
+      "Sandelhout": "Verzacht het bloemenboeket tot een zacht kussenparfum."
+    },
+    harmonyType: "Exotisch Tropisch & Zwoele Warmte"
+  },
+  "kaneel": {
+    partnerNames: ["Sinaasappel", "Kruidnagel", "Vanille", "Cederhout", "Wierook"],
+    reasons: {
+      "Sinaasappel": "De gouden standaard voor knusse wintergezelligheid.",
+      "Vanille": "Rondt de scherpe specerij af tot een heerlijk bakkerij-aroma.",
+      "Cederhout": "Geeft een houtachtige basis zodat het niet te zoet wordt."
+    },
+    harmonyType: "Warme Specerijen & Gezellige Haard"
+  },
+  "vanille": {
+    partnerNames: ["Sinaasappel", "Kaneel", "Lavendel", "Patchouli", "Cederhout", "Bergamot"],
+    reasons: {
+      "Sinaasappel": "Romige citrusdessert-geur; geliefd door jong en oud.",
+      "Lavendel": "Zachte balsemachtige zoetheid; heerlijk voor een kussenspray.",
+      "Patchouli": "Diepe chocolade- en ambertoets; mysterieus en rijk.",
+      "Cederhout": "Maakt de vanille mannelijker en droger; luxe boetiekhotel."
+    },
+    harmonyType: "Fluweelzachte Balsem & Zoete Fixatie"
+  },
+  "teatree": {
+    partnerNames: ["Eucalyptus", "Pepermunt", "Citroen", "Lavendel", "Grove Den"],
+    reasons: {
+      "Eucalyptus": "Maximale antibacteriële en schimmelwerende werking.",
+      "Citroen": "Verfrist het medicinale karakter tot een aangename schoonmaakgeur.",
+      "Lavendel": "Verzacht de scherpe geur en helpt bij huidverzorging en herstel."
+    },
+    harmonyType: "Medicinaal Zuiverend & Schone Lucht"
+  },
+  "groveden": {
+    partnerNames: ["Cederhout", "Eucalyptus", "Citroen-Euc.", "Rozemarijn", "Lavendel"],
+    reasons: {
+      "Cederhout": "Volledig harmonisch bosakkoord; grondend en rustgevend.",
+      "Eucalyptus": "Opent de borstkas en zuivert winterse ruimtes.",
+      "Rozemarijn": "Verkwikkend bergklimaat voor actieve dagen."
+    },
+    harmonyType: "Naaldwoud & Vitale Adem"
+  },
+  "grapefruit": {
+    partnerNames: ["Sinaasappel", "Rozemarijn", "Pepermunt", "Bergamot", "Cederhout"],
+    reasons: {
+      "Rozemarijn": "Verbetert mentale alertheid en humeur.",
+      "Pepermunt": "Superfrisse energieboost voor de vroege ochtend.",
+      "Cederhout": "Droog-fruitig akkoord met mannelijke elegantie."
+    },
+    harmonyType: "Bitter-Frisse Citrus & Vitaliteit"
+  },
+  "lemongrass": {
+    partnerNames: ["Lavendel", "Eucalyptus", "Pepermunt", "Cederhout", "Sinaasappel"],
+    reasons: {
+      "Lavendel": "Heerlijk fris linnen-akkoord; zuivert beddengoed en kasten.",
+      "Eucalyptus": "Krachtige verfrissing; weert muggen en insecten af.",
+      "Cederhout": "Houdt de scherpe citroengrasgeur langer vast op stoffen."
+    },
+    harmonyType: "Exotisch Gras & Fris Linnen"
+  }
+};
+
+/**
+ * Zoekt en genereert voor ELKE olie in de app passende geurcombinaties en roomspray recepten.
+ */
+export function getOilFragrancePairings(oil: EssentialOil, allOils: EssentialOil[]) {
+  const normName = oil.name.toLowerCase();
+  const normCategory = oil.category.toLowerCase();
+  const normNote = oil.noteType;
+
+  // 1. Zoek eerst in de curated map
+  let curatedKey = Object.keys(CURATED_OIL_PAIRINGS).find((k) => normName.includes(k));
+
+  const pairings: OilPairing[] = [];
+  const addedIds = new Set<string>();
+
+  if (curatedKey) {
+    const curated = CURATED_OIL_PAIRINGS[curatedKey];
+    for (const partnerName of curated.partnerNames) {
+      const match = allOils.find(
+        (o) => o.id !== oil.id && (o.name.toLowerCase().includes(partnerName.toLowerCase()) || partnerName.toLowerCase().includes(o.name.toLowerCase()))
+      );
+      if (match && !addedIds.has(match.id)) {
+        addedIds.add(match.id);
+        const reason = curated.reasons[partnerName] || `Harmonieert uitstekend met ${oil.name} dankzij complementaire geurnoten.`;
+        pairings.push({
+          oilId: match.id,
+          name: match.name,
+          noteType: match.noteType,
+          category: match.category,
+          reason,
+          harmonyType: curated.harmonyType
+        });
+      }
+    }
+  }
+
+  // 2. Fallback / complementaire harmonie op basis van complementaire noten (Top - Midden - Basis)
+  if (pairings.length < 4) {
+    // Zoek complementaire noten
+    const neededNotes = normNote === "Top" ? ["Midden", "Basis"] : normNote === "Basis" ? ["Top", "Midden"] : ["Top", "Basis"];
+    
+    for (const other of allOils) {
+      if (pairings.length >= 6) break;
+      if (other.id === oil.id || addedIds.has(other.id)) continue;
+
+      if (neededNotes.includes(other.noteType)) {
+        // Controleer of aroma's aansluiten
+        const sharedAromas = other.aromaProfile.filter((a) => oil.aromaProfile.includes(a));
+        const isComplementary =
+          (normCategory.includes("citrus") && (other.category.includes("Hout") || other.category.includes("Bloemen"))) ||
+          (normCategory.includes("bloem") && (other.category.includes("Citrus") || other.category.includes("Hout"))) ||
+          (normCategory.includes("hout") && (other.category.includes("Citrus") || other.category.includes("Hars"))) ||
+          (normCategory.includes("kruid") && (other.category.includes("Munt") || other.category.includes("Citrus"))) ||
+          sharedAromas.length > 0;
+
+        if (isComplementary) {
+          addedIds.add(other.id);
+          pairings.push({
+            oilId: other.id,
+            name: other.name,
+            noteType: other.noteType,
+            category: other.category,
+            reason: `Verbindt ${oil.name} (${oil.noteType}noot) met een complementaire ${other.noteType}noot voor een gebalanceerde geurdriehoek.`,
+            harmonyType: `${oil.category} & ${other.category} Balans`
+          });
+        }
+      }
+    }
+  }
+
+  // 3. Vind alle populaire roomspray recepten die deze olie bevatten
+  const matchingRecipes = POPULAR_ROOM_SPRAYS.filter((rec) =>
+    rec.ingredients.some(
+      (ing) => ing.oilId === oil.id || ing.name.toLowerCase().includes(normName) || normName.includes(ing.name.toLowerCase())
+    )
+  );
+
+  // 4. Snelle combinatiesuggesties als inspiratie
+  const suggestedQuickBlends = [
+    {
+      name: `${oil.name} Balans & Zen`,
+      description: `Een evenwichtige combinatie waarin ${oil.name} het geurhart vormt.`,
+      oils: [
+        { name: oil.name, dropsRatio: 4 },
+        { name: pairings[0]?.name || "Lavendel", dropsRatio: 3 },
+        { name: pairings[1]?.name || "Cederhout", dropsRatio: 2 }
+      ]
+    },
+    {
+      name: `${oil.name} Frisse Ochtendnevel`,
+      description: `Een verkwikkende formule om je leefruimte energie en frisheid te geven.`,
+      oils: [
+        { name: oil.name, dropsRatio: 3 },
+        { name: pairings[2]?.name || pairings[0]?.name || "Bergamot", dropsRatio: 3 },
+        { name: pairings[3]?.name || pairings[1]?.name || "Sinaasappel", dropsRatio: 2 }
+      ]
+    }
+  ];
+
+  return {
+    pairings,
+    matchingRecipes,
+    suggestedQuickBlends
+  };
+}
+
 

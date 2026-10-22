@@ -67,7 +67,7 @@ export default function SymptomFinder({ oils, onSelectOil }: SymptomFinderProps)
                   {count} {count === 1 ? "olie" : "oliën"}
                 </span>
               </div>
-              <p className={`text-xs font-light leading-relaxed line-clamp-2 ${isSelected ? "text-slate-300" : "text-slate-500"}`}>
+              <p className={`text-[13px] font-normal leading-relaxed line-clamp-2 ${isSelected ? "text-slate-100" : "text-slate-600"}`}>
                 {sym.description}
               </p>
             </button>

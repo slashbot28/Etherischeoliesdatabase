@@ -206,7 +206,7 @@ export default function SynergyBlends({
                         </span>
                       </div>
 
-                      <p className="text-xs font-light text-slate-600 leading-relaxed mb-4">
+                      <p className="text-sm font-normal text-slate-700 leading-relaxed mb-4">
                         {syn.purpose}
                       </p>
 
@@ -275,7 +275,7 @@ export default function SynergyBlends({
                         <h4 className="font-normal text-slate-900 text-sm tracking-wide mb-1 pr-6">
                           {syn.name}
                         </h4>
-                        <p className="text-xs font-light text-slate-600 leading-relaxed mb-4">
+                        <p className="text-sm font-normal text-slate-700 leading-relaxed mb-4">
                           {syn.purpose}
                         </p>
 

@@ -6,13 +6,17 @@ import {
   NOTE_TYPES,
   STOCK_STATUSES,
   SUGGESTED_SYNERGIES,
+  POPULAR_ROOM_SPRAYS,
+  RoomSprayRecipe,
   getOilPhoto,
+  getOilFragrancePairings,
 } from "./data";
 import QuickStats from "./components/QuickStats";
 import OilCard from "./components/OilCard";
 import OilModal from "./components/OilModal";
 import SymptomFinder from "./components/SymptomFinder";
 import SynergyBlends from "./components/SynergyBlends";
+import RoomSprayStudio from "./components/RoomSprayStudio";
 import {
   Search,
   Plus,
@@ -26,13 +30,17 @@ import {
   X,
   Droplet,
   ShieldAlert,
+  SprayCan,
+  ArrowRight,
 } from "lucide-react";
 
 export default function App() {
   // --- STATE CORE & PERSISTENCE ---
   const [oils, setOils] = useState<EssentialOil[]>([]);
   const [customBlends, setCustomBlends] = useState<typeof SUGGESTED_SYNERGIES>([]);
-  const [activeTab, setActiveTab] = useState<"cabinet" | "symptoms" | "synergies">("cabinet");
+  const [customRoomSprays, setCustomRoomSprays] = useState<RoomSprayRecipe[]>([]);
+  const [roomsprayFocusOil, setRoomsprayFocusOil] = useState<EssentialOil | null>(null);
+  const [activeTab, setActiveTab] = useState<"cabinet" | "symptoms" | "synergies" | "roomsprays">("cabinet");
   
   // Modal visibility
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -52,6 +60,7 @@ export default function App() {
   useEffect(() => {
     const cachedOils = localStorage.getItem("essential_oils_db");
     const cachedBlends = localStorage.getItem("essential_custom_blends");
+    const cachedRoomSprays = localStorage.getItem("essential_custom_roomsprays");
 
     if (cachedOils) {
       try {
@@ -70,6 +79,14 @@ export default function App() {
         setCustomBlends([]);
       }
     }
+
+    if (cachedRoomSprays) {
+      try {
+        setCustomRoomSprays(JSON.parse(cachedRoomSprays));
+      } catch (e) {
+        setCustomRoomSprays([]);
+      }
+    }
   }, []);
 
   // Sync state helpers
@@ -81,6 +98,23 @@ export default function App() {
   const saveBlendsToStateAndCache = (newBlends: typeof SUGGESTED_SYNERGIES) => {
     setCustomBlends(newBlends);
     localStorage.setItem("essential_custom_blends", JSON.stringify(newBlends));
+  };
+
+  const saveRoomSpraysToStateAndCache = (newSprays: RoomSprayRecipe[]) => {
+    setCustomRoomSprays(newSprays);
+    localStorage.setItem("essential_custom_roomsprays", JSON.stringify(newSprays));
+  };
+
+  const handleSaveCustomRoomSpray = (newSpray: RoomSprayRecipe) => {
+    const updated = [newSpray, ...customRoomSprays];
+    saveRoomSpraysToStateAndCache(updated);
+  };
+
+  const handleDeleteCustomRoomSpray = (id: string) => {
+    if (confirm("Wilt u dit roomspray recept permanent wissen?")) {
+      const updated = customRoomSprays.filter((s) => s.id !== id);
+      saveRoomSpraysToStateAndCache(updated);
+    }
   };
 
   // --- CRUD ACTIONS & HANDLERS ---
@@ -148,8 +182,11 @@ export default function App() {
     ) {
       localStorage.removeItem("essential_oils_db");
       localStorage.removeItem("essential_custom_blends");
+      localStorage.removeItem("essential_custom_roomsprays");
       setOils(INITIAL_OILS);
       setCustomBlends([]);
+      setCustomRoomSprays([]);
+      setRoomsprayFocusOil(null);
       setFocusedOil(null);
       alert("Standaard database succesvol hersteld.");
     }
@@ -397,6 +434,19 @@ export default function App() {
           >
             <Sparkles className="w-3.5 h-3.5" strokeWidth={1.4} />
             <span>Synergie Studio</span>
+          </button>
+
+          <button
+            id="tab-roomsprays"
+            onClick={() => setActiveTab("roomsprays")}
+            className={`flex items-center gap-2 py-2 px-4 text-xs font-medium rounded-xl transition-all ${
+              activeTab === "roomsprays"
+                ? "glass-tag-floating text-slate-900 shadow-2xs font-semibold"
+                : "text-slate-500 hover:text-slate-800 hover:bg-white/40"
+            }`}
+          >
+            <SprayCan className="w-3.5 h-3.5" strokeWidth={1.4} />
+            <span>Roomspray Studio</span>
           </button>
 
         </div>
@@ -661,16 +711,16 @@ export default function App() {
                       <h2 className="text-2xl sm:text-3xl font-light tracking-tight text-slate-900">
                         {focusedOil.name}
                       </h2>
-                      <p className="text-sm text-slate-400 italic font-light tracking-wide mt-0.5">
+                      <p className="text-base text-slate-500 italic font-normal tracking-wide mt-1">
                         {focusedOil.botanicalName}
                       </p>
                     </div>
 
-                    <div className="space-y-1.5">
-                      <span className="text-[10px] font-mono uppercase tracking-[0.18em] text-slate-400 block font-medium">
+                    <div className="space-y-2">
+                      <span className="text-xs font-mono uppercase tracking-[0.16em] text-slate-600 block font-semibold">
                         Karakteristieken & Omschrijving:
                       </span>
-                      <p className="text-xs sm:text-sm text-slate-600 font-light leading-relaxed whitespace-pre-line">
+                      <p className="text-base text-slate-800 font-normal leading-relaxed whitespace-pre-line">
                         {focusedOil.description}
                       </p>
                     </div>
@@ -678,14 +728,14 @@ export default function App() {
                     {/* Applications & Properties */}
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
                       <div className="space-y-2">
-                        <span className="text-[10px] font-mono uppercase tracking-[0.18em] text-slate-400 block font-medium">
+                        <span className="text-xs font-mono uppercase tracking-[0.16em] text-slate-600 block font-semibold">
                           Therapeutische Werking:
                         </span>
-                        <div className="flex flex-wrap gap-1.5">
+                        <div className="flex flex-wrap gap-2">
                           {focusedOil.properties.map((prop) => (
                             <span
                               key={prop}
-                              className="text-[11px] font-mono text-slate-700 bg-white/70 border border-white/90 px-2.5 py-1 rounded-full shadow-2xs"
+                              className="text-xs font-mono text-slate-800 bg-white/80 border border-slate-200/90 px-3 py-1 rounded-full shadow-2xs font-medium"
                             >
                               ✦ {prop}
                             </span>
@@ -694,14 +744,14 @@ export default function App() {
                       </div>
 
                       <div className="space-y-2">
-                        <span className="text-[10px] font-mono uppercase tracking-[0.18em] text-slate-400 block font-medium">
+                        <span className="text-xs font-mono uppercase tracking-[0.16em] text-slate-600 block font-semibold">
                           Toepassingswijze:
                         </span>
-                        <div className="flex flex-wrap gap-1.5">
+                        <div className="flex flex-wrap gap-2">
                           {focusedOil.applications.map((app) => (
                             <span
                               key={app}
-                              className="text-[11px] font-mono text-slate-700 bg-white/70 border border-white/90 px-2.5 py-1 rounded-full shadow-2xs"
+                              className="text-xs font-mono text-slate-800 bg-white/80 border border-slate-200/90 px-3 py-1 rounded-full shadow-2xs font-medium"
                             >
                               💧 {app}
                             </span>
@@ -712,18 +762,87 @@ export default function App() {
 
                     {/* Safety advice */}
                     {focusedOil.safetyPrecautions.length > 0 && (
-                      <div className="glass-panel p-3.5 rounded-xl space-y-1">
-                        <div className="flex items-center gap-1.5 text-xs font-mono text-amber-800">
-                          <ShieldAlert className="w-3.5 h-3.5 text-amber-600" strokeWidth={1.3} />
-                          <span className="font-medium">Voorzorgsmaatregelen:</span>
+                      <div className="glass-panel p-4 rounded-xl space-y-2">
+                        <div className="flex items-center gap-2 text-sm font-mono text-amber-900">
+                          <ShieldAlert className="w-4 h-4 text-amber-600" strokeWidth={1.5} />
+                          <span className="font-semibold uppercase tracking-wider text-xs">Voorzorgsmaatregelen:</span>
                         </div>
-                        <ul className="list-disc pl-5 text-[11px] text-slate-600 font-light space-y-0.5">
+                        <ul className="list-disc pl-5 text-sm text-slate-700 font-normal space-y-1 leading-relaxed">
                           {focusedOil.safetyPrecautions.map((prec, i) => (
                             <li key={i}>{prec}</li>
                           ))}
                         </ul>
                       </div>
                     )}
+
+                    {/* 🧴 Roomspray & Geurcombinaties Showcase */}
+                    {(() => {
+                      const oilPairings = getOilFragrancePairings(focusedOil, oils);
+                      return (
+                        <div className="glass-panel p-5 rounded-2xl space-y-4 border border-amber-500/20 bg-amber-500/5">
+                          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-amber-500/20 pb-3">
+                            <div className="flex items-center gap-2">
+                              <SprayCan className="w-4 h-4 text-amber-700" strokeWidth={1.5} />
+                              <span className="font-semibold uppercase tracking-wider text-xs font-mono text-slate-900">
+                                Roomspray Geurcombinaties met {focusedOil.name}
+                              </span>
+                            </div>
+                            <button
+                              type="button"
+                              onClick={() => {
+                                setRoomsprayFocusOil(focusedOil);
+                                setActiveTab("roomsprays");
+                              }}
+                              className="btn-amber-glow px-3.5 py-1.5 rounded-xl text-xs font-medium flex items-center gap-1.5 self-start sm:self-auto cursor-pointer"
+                            >
+                              <span>🧴 Maak Roomspray in Studio</span>
+                              <ArrowRight className="w-3.5 h-3.5" />
+                            </button>
+                          </div>
+
+                          <div className="space-y-2">
+                            <span className="text-[11px] font-mono uppercase tracking-wider text-slate-600 block font-medium">
+                              Harmonieert uitstekend met:
+                            </span>
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                              {oilPairings.pairings.slice(0, 4).map((p) => (
+                                <div key={p.oilId} className="bg-white/70 p-2.5 rounded-xl border border-white/80 text-xs">
+                                  <div className="flex items-center justify-between">
+                                    <strong className="text-slate-900 font-medium">{p.name}</strong>
+                                    <span className="text-[10px] font-mono text-slate-500 glass-tag-floating px-1.5 rounded">{p.noteType}noot</span>
+                                  </div>
+                                  <p className="text-[11px] text-slate-600 font-light mt-1 leading-snug">{p.reason}</p>
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+
+                          {oilPairings.matchingRecipes.length > 0 && (
+                            <div className="pt-1">
+                              <span className="text-[11px] font-mono uppercase tracking-wider text-slate-600 block font-medium mb-1.5">
+                                Populaire Roomsprays met deze olie:
+                              </span>
+                              <div className="flex flex-wrap gap-2">
+                                {oilPairings.matchingRecipes.map((rec) => (
+                                  <button
+                                    key={rec.id}
+                                    type="button"
+                                    onClick={() => {
+                                      setRoomsprayFocusOil(focusedOil);
+                                      setActiveTab("roomsprays");
+                                    }}
+                                    className="text-xs font-mono bg-white/80 hover:bg-white text-slate-800 border border-slate-200/90 px-3 py-1 rounded-full shadow-2xs font-medium flex items-center gap-1.5 transition-all cursor-pointer"
+                                  >
+                                    <span>{rec.icon}</span>
+                                    <span>{rec.name}</span>
+                                  </button>
+                                ))}
+                              </div>
+                            </div>
+                          )}
+                        </div>
+                      );
+                    })()}
                   </div>
                 </div>
               </div>
@@ -741,6 +860,10 @@ export default function App() {
                     onRatingChange={handleRatingChange}
                     onStockChange={handleStockChange}
                     onFocus={handleSelectOilForFocussing}
+                    onMakeRoomSpray={(oil) => {
+                      setRoomsprayFocusOil(oil);
+                      setActiveTab("roomsprays");
+                    }}
                   />
                 ))}
               </div>
@@ -780,6 +903,19 @@ export default function App() {
             customBlends={customBlends}
             onSaveCustomBlend={handleSaveCustomBlend}
             onDeleteCustomBlend={handleDeleteCustomBlend}
+          />
+        )}
+
+        {/* Tab 4: Roomspray Studio View */}
+        {activeTab === "roomsprays" && (
+          <RoomSprayStudio
+            oils={oils}
+            initialOil={roomsprayFocusOil}
+            onClearInitialOil={() => setRoomsprayFocusOil(null)}
+            onFocusOil={handleSelectOilForFocussing}
+            customRecipes={customRoomSprays}
+            onSaveCustomRecipe={handleSaveCustomRoomSpray}
+            onDeleteCustomRecipe={handleDeleteCustomRoomSpray}
           />
         )}
 

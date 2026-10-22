@@ -487,16 +487,16 @@ export default function OilModal({ oil, onClose, onSave }: OilModalProps) {
             </h3>
 
             <div>
-              <label className="block text-[10px] font-mono uppercase tracking-wider text-slate-500 mb-1">
+              <label className="block text-xs font-mono uppercase tracking-wider text-slate-600 font-semibold mb-1.5">
                 Karakteristieken & Botanische Achtergrond
               </label>
               <textarea
                 id="input-oil-desc"
-                rows={3}
+                rows={4}
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
                 placeholder="Geef hier een omschrijving van de plantgeur, de herkomst, of de specifieke therapeuthische kracht..."
-                className="glass-dropdown w-full text-xs p-3.5 rounded-xl text-slate-800 font-light leading-relaxed outline-none"
+                className="glass-dropdown w-full text-sm sm:text-base p-3.5 rounded-xl text-slate-800 font-normal leading-relaxed outline-none"
               ></textarea>
             </div>
 
