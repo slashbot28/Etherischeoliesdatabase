@@ -17,6 +17,16 @@ import OilModal from "./components/OilModal";
 import SymptomFinder from "./components/SymptomFinder";
 import SynergyBlends from "./components/SynergyBlends";
 import RoomSprayStudio from "./components/RoomSprayStudio";
+import ShoppingListModal from "./components/ShoppingListModal";
+import {
+  auth,
+  loginWithGoogle,
+  logoutFirebase,
+  onAuthStatusChange,
+  syncUserDataToCloud,
+  fetchUserCloudData,
+} from "./services/firebase";
+import { User } from "firebase/auth";
 import {
   Search,
   Plus,
@@ -32,6 +42,13 @@ import {
   ShieldAlert,
   SprayCan,
   ArrowRight,
+  Sun,
+  Moon,
+  ShoppingCart,
+  Cloud,
+  Smartphone,
+  LogOut,
+  Check,
 } from "lucide-react";
 
 export default function App() {
@@ -46,6 +63,23 @@ export default function App() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedOilToEdit, setSelectedOilToEdit] = useState<EssentialOil | null>(null);
 
+  // Shopping List Modal
+  const [isShoppingListOpen, setIsShoppingListOpen] = useState(false);
+
+  // Dark Mode
+  const [darkMode, setDarkMode] = useState<boolean>(() => {
+    const saved = localStorage.getItem("theme");
+    if (saved) return saved === "dark";
+    return window.matchMedia("(prefers-color-scheme: dark)").matches;
+  });
+
+  // PWA Install prompt
+  const [installPrompt, setInstallPrompt] = useState<any>(null);
+
+  // Firebase Auth & Cloud Sync
+  const [currentUser, setCurrentUser] = useState<User | null>(null);
+  const [syncStatus, setSyncStatus] = useState<"idle" | "syncing" | "synced" | "error">("idle");
+
   // Filters state
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState<string>("All");
@@ -55,6 +89,73 @@ export default function App() {
 
   // Selected single oil for the detail focus drawer/popover
   const [focusedOil, setFocusedOil] = useState<EssentialOil | null>(null);
+
+  // Apply dark mode class to html element
+  useEffect(() => {
+    if (darkMode) {
+      document.documentElement.classList.add("dark");
+      localStorage.setItem("theme", "dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+      localStorage.setItem("theme", "light");
+    }
+  }, [darkMode]);
+
+  // Listen for PWA beforeinstallprompt
+  useEffect(() => {
+    const handler = (e: any) => {
+      e.preventDefault();
+      setInstallPrompt(e);
+    };
+    window.addEventListener("beforeinstallprompt", handler);
+    return () => window.removeEventListener("beforeinstallprompt", handler);
+  }, []);
+
+  // Listen for Firebase Auth changes & load user cloud data
+  useEffect(() => {
+    const unsubscribe = onAuthStatusChange(async (user) => {
+      setCurrentUser(user);
+      if (user) {
+        setSyncStatus("syncing");
+        const cloudData = await fetchUserCloudData(user.uid);
+        if (cloudData) {
+          if (cloudData.oils && cloudData.oils.length > 0) {
+            setOils(cloudData.oils);
+            localStorage.setItem("essential_oils_db", JSON.stringify(cloudData.oils));
+          }
+          if (cloudData.customBlends) {
+            setCustomBlends(cloudData.customBlends);
+            localStorage.setItem("essential_custom_blends", JSON.stringify(cloudData.customBlends));
+          }
+          if (cloudData.customRoomSprays) {
+            setCustomRoomSprays(cloudData.customRoomSprays);
+            localStorage.setItem("essential_custom_roomsprays", JSON.stringify(cloudData.customRoomSprays));
+          }
+          setSyncStatus("synced");
+        } else {
+          // First time cloud user: upload local data
+          await syncUserDataToCloud(user.uid, {
+            oils: JSON.parse(localStorage.getItem("essential_oils_db") || "[]"),
+            customBlends: JSON.parse(localStorage.getItem("essential_custom_blends") || "[]"),
+            customRoomSprays: JSON.parse(localStorage.getItem("essential_custom_roomsprays") || "[]"),
+          });
+          setSyncStatus("synced");
+        }
+      } else {
+        setSyncStatus("idle");
+      }
+    });
+    return () => unsubscribe();
+  }, []);
+
+  // Check URL parameters for QR-code deep-linking or tab selection
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const tabParam = params.get("tab");
+    if (tabParam === "roomsprays" || tabParam === "synergies" || tabParam === "symptoms" || tabParam === "cabinet") {
+      setActiveTab(tabParam as any);
+    }
+  }, []);
 
   // Load state from localStorage on init
   useEffect(() => {
@@ -89,20 +190,69 @@ export default function App() {
     }
   }, []);
 
+  // Cloud sync & auth actions
+  const handleLogin = async () => {
+    try {
+      setSyncStatus("syncing");
+      await loginWithGoogle();
+    } catch (err) {
+      console.error("Login mislukt:", err);
+      setSyncStatus("error");
+    }
+  };
+
+  const handleLogout = async () => {
+    await logoutFirebase();
+    setCurrentUser(null);
+    setSyncStatus("idle");
+  };
+
+  const handleCloudSyncNow = async () => {
+    if (!currentUser) return;
+    setSyncStatus("syncing");
+    const success = await syncUserDataToCloud(currentUser.uid, {
+      oils,
+      customBlends,
+      customRoomSprays,
+    });
+    setSyncStatus(success ? "synced" : "error");
+    setTimeout(() => {
+      if (success) setSyncStatus("idle");
+    }, 2500);
+  };
+
+  const handleInstallPWA = async () => {
+    if (!installPrompt) return;
+    installPrompt.prompt();
+    const { outcome } = await installPrompt.userChoice;
+    if (outcome === "accepted") {
+      setInstallPrompt(null);
+    }
+  };
+
   // Sync state helpers
   const saveOilsToStateAndCache = (newOils: EssentialOil[]) => {
     setOils(newOils);
     localStorage.setItem("essential_oils_db", JSON.stringify(newOils));
+    if (currentUser) {
+      syncUserDataToCloud(currentUser.uid, { oils: newOils });
+    }
   };
 
   const saveBlendsToStateAndCache = (newBlends: typeof SUGGESTED_SYNERGIES) => {
     setCustomBlends(newBlends);
     localStorage.setItem("essential_custom_blends", JSON.stringify(newBlends));
+    if (currentUser) {
+      syncUserDataToCloud(currentUser.uid, { customBlends: newBlends });
+    }
   };
 
   const saveRoomSpraysToStateAndCache = (newSprays: RoomSprayRecipe[]) => {
     setCustomRoomSprays(newSprays);
     localStorage.setItem("essential_custom_roomsprays", JSON.stringify(newSprays));
+    if (currentUser) {
+      syncUserDataToCloud(currentUser.uid, { customRoomSprays: newSprays });
+    }
   };
 
   const handleSaveCustomRoomSpray = (newSpray: RoomSprayRecipe) => {
@@ -360,33 +510,110 @@ export default function App() {
             </a>
           </div>
 
-          {/* Action buttons with brushed metallic and amber glow finishes */}
-          <div className="flex items-center gap-2 w-full sm:w-auto justify-end">
+          {/* Action buttons: Dark Mode, Cloud Sync, Shopping List, PWA Install, Export & Add */}
+          <div className="flex flex-wrap items-center gap-2 w-full sm:w-auto justify-end">
+            
+            {/* 1. Dark Mode Toggle */}
+            <button
+              onClick={() => setDarkMode(!darkMode)}
+              className="btn-metallic p-2 rounded-xl text-amber-600 dark:text-amber-400 cursor-pointer transition-colors shadow-2xs"
+              title={darkMode ? "Lichte zen-modus activeren" : "Wellness / Donkere modus activeren"}
+            >
+              {darkMode ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
+            </button>
+
+            {/* 2. PWA Install Button (conditional) */}
+            {installPrompt && (
+              <button
+                onClick={handleInstallPWA}
+                className="btn-metallic px-3 py-1.5 rounded-xl text-xs font-mono text-emerald-700 dark:text-emerald-400 border-emerald-400/40 flex items-center gap-1.5 cursor-pointer shadow-2xs animate-pulse"
+                title="Installeer app op je homescreen"
+              >
+                <Smartphone className="w-3.5 h-3.5" />
+                <span className="hidden md:inline">Installeer</span>
+              </button>
+            )}
+
+            {/* 3. Cloud Sync / Google Login */}
+            {currentUser ? (
+              <div className="flex items-center gap-1 bg-white/60 dark:bg-slate-800/80 p-1 rounded-xl border border-slate-200/80 dark:border-slate-700">
+                <button
+                  onClick={handleCloudSyncNow}
+                  className="px-2.5 py-1 rounded-lg text-xs font-mono text-emerald-700 dark:text-emerald-400 flex items-center gap-1 hover:bg-emerald-50 dark:hover:bg-emerald-950/50 transition-colors"
+                  title={`Ingelogd als ${currentUser.email} · Klik om direct te synchroniseren`}
+                >
+                  <Cloud className={`w-3.5 h-3.5 ${syncStatus === "syncing" ? "animate-spin text-amber-500" : ""}`} />
+                  <span className="hidden xl:inline text-[11px]">
+                    {syncStatus === "syncing" ? "Syncen..." : "Gesynchroniseerd"}
+                  </span>
+                </button>
+                <button
+                  onClick={handleLogout}
+                  className="p-1 rounded-lg text-slate-400 hover:text-rose-600 transition-colors"
+                  title="Uitloggen uit Google Cloud Sync"
+                >
+                  <LogOut className="w-3.5 h-3.5" />
+                </button>
+              </div>
+            ) : (
+              <button
+                onClick={handleLogin}
+                className="btn-metallic px-3 py-1.5 rounded-xl text-xs font-mono text-slate-700 dark:text-slate-300 flex items-center gap-1.5 cursor-pointer shadow-2xs"
+                title="Inloggen met Google voor Cloud Synchronisatie over al je apparaten"
+              >
+                <Cloud className="w-3.5 h-3.5 text-sky-500" />
+                <span className="hidden md:inline">Cloud Sync</span>
+              </button>
+            )}
+
+            {/* 4. Smart Shopping List */}
+            <button
+              id="btn-shopping-list"
+              onClick={() => setIsShoppingListOpen(true)}
+              className="btn-metallic px-3 py-1.5 rounded-xl text-xs font-mono text-slate-700 dark:text-slate-200 flex items-center gap-1.5 relative cursor-pointer shadow-2xs"
+              title="Open Slimme Boodschappenlijst"
+            >
+              <ShoppingCart className="w-3.5 h-3.5 text-amber-600 dark:text-amber-400" />
+              <span className="hidden md:inline">Boodschappen</span>
+              {(() => {
+                const count = oils.filter((o) => o.stock === "Op" || o.stock === "Bijna op" || o.stock === "Niet in bezit").length;
+                return count > 0 ? (
+                  <span className="px-1.5 py-0.2 text-[10px] font-bold rounded-full bg-amber-500 text-white">
+                    {count}
+                  </span>
+                ) : null;
+              })()}
+            </button>
+
+            {/* 5. CSV Export */}
             <button
               id="btn-download-csv"
               onClick={handleDownloadCSV}
-              className="btn-metallic px-3 py-2 rounded-xl text-xs font-mono text-slate-700 flex items-center gap-1.5"
+              className="btn-metallic p-2 sm:px-3 sm:py-1.5 rounded-xl text-xs font-mono text-slate-700 dark:text-slate-300 flex items-center gap-1.5"
               title="Exporteer naar .CSV"
             >
               <Download className="w-3.5 h-3.5 text-slate-500" strokeWidth={1.3} />
-              <span className="hidden sm:inline">Exporteer CSV</span>
+              <span className="hidden lg:inline">CSV</span>
             </button>
+
+            {/* 6. Reset Database */}
             <button
               id="btn-reset-db"
               onClick={handleResetDatabase}
-              className="btn-metallic p-2 sm:px-3 rounded-xl text-xs font-mono text-slate-600 flex items-center gap-1.5"
+              className="btn-metallic p-2 sm:px-2.5 sm:py-1.5 rounded-xl text-xs font-mono text-slate-600 dark:text-slate-400 flex items-center gap-1.5"
               title="Herstel standaardwaarden"
             >
               <RotateCcw className="w-3.5 h-3.5 text-slate-500" strokeWidth={1.3} />
-              <span className="hidden sm:inline">Herstel</span>
             </button>
+
+            {/* 7. New Oil */}
             <button
               id="btn-add-oil"
               onClick={handleTriggerAdd}
-              className="btn-amber-glow px-4 py-2 rounded-xl text-xs font-medium flex items-center gap-1.5"
+              className="btn-amber-glow px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-xl text-xs font-medium flex items-center gap-1.5 shadow-xs"
             >
               <Plus className="w-3.5 h-3.5" strokeWidth={1.5} />
-              <span>Nieuwe Olie</span>
+              <span>Nieuw</span>
             </button>
           </div>
 
@@ -949,6 +1176,14 @@ export default function App() {
           onSave={handleSaveOil}
         />
       )}
+
+      {/* Smart Shopping List & Wishlist Modal */}
+      <ShoppingListModal
+        isOpen={isShoppingListOpen}
+        onClose={() => setIsShoppingListOpen(false)}
+        oils={oils}
+        onUpdateStock={(id, newStock) => handleStockChange(id, newStock)}
+      />
 
     </div>
   );

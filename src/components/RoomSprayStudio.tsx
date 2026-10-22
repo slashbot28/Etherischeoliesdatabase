@@ -7,6 +7,9 @@ import {
   getOilFragrancePairings,
   getOilPhoto,
 } from "../data";
+import FragrancePyramid, { PyramidIngredient } from "./FragrancePyramid";
+import PrintableLabelModal from "./PrintableLabelModal";
+import { findOilSubstitutes } from "../utils/substitutionEngine";
 import {
   SprayCan,
   Droplet,
@@ -25,7 +28,8 @@ import {
   Search,
   CheckCircle2,
   RefreshCw,
-  Plus
+  Plus,
+  QrCode
 } from "lucide-react";
 
 interface RoomSprayStudioProps {
@@ -82,6 +86,19 @@ export default function RoomSprayStudio({
   // Copy feedback
   const [copiedFeedback, setCopiedFeedback] = useState<boolean>(false);
   const [savedFeedback, setSavedFeedback] = useState<boolean>(false);
+  const [isLabelModalOpen, setIsLabelModalOpen] = useState<boolean>(false);
+
+  const handleReplaceIngredient = (oldOilId: string, newOilId: string) => {
+    const newOil = oils.find((o) => o.id === newOilId);
+    if (!newOil) return;
+    setActiveOils((prev) =>
+      prev.map((item) =>
+        item.id === oldOilId
+          ? { ...item, id: newOil.id, name: newOil.name, noteType: newOil.noteType }
+          : item
+      )
+    );
+  };
 
   // If initialOil changes, sync it
   useEffect(() => {
@@ -589,13 +606,36 @@ BEREIDINGSWIJZE:
                           <Trash2 className="w-3.5 h-3.5" />
                         </button>
                       </div>
+
+                      {/* Substitution suggestion when out of stock */}
+                      {isOutOfStock && oilObj && (
+                        (() => {
+                          const subs = findOilSubstitutes(oilObj, oils);
+                          if (subs.length === 0) return null;
+                          const best = subs[0];
+                          return (
+                            <div className="w-full mt-2 pt-2 border-t border-slate-200/50 dark:border-slate-800 text-[11px] flex items-center justify-between gap-2 bg-amber-50/70 dark:bg-amber-950/40 p-2.5 rounded-xl">
+                              <span className="text-amber-900 dark:text-amber-200 font-normal">
+                                💡 Alternatief: <strong>{best.oil.name}</strong> ({best.matchReasons[0]})
+                              </span>
+                              <button
+                                type="button"
+                                onClick={() => handleReplaceIngredient(ing.oilId, best.oil.id)}
+                                className="px-2.5 py-1 rounded-lg bg-amber-600 hover:bg-amber-700 text-white font-semibold text-[10px] shrink-0 shadow-2xs transition-colors"
+                              >
+                                Gebruik {best.oil.name}
+                              </button>
+                            </div>
+                          );
+                        })()
+                      )}
                     </div>
                   );
                 })}
               </div>
 
-              {/* Action buttons: Save & Copy */}
-              <div className="pt-3 flex flex-wrap items-center gap-3">
+              {/* Action buttons: Save, Print Label with QR, and Copy */}
+              <div className="pt-3 flex flex-wrap items-center gap-2.5">
                 <button
                   type="button"
                   onClick={handleSaveCurrentRecipe}
@@ -607,8 +647,17 @@ BEREIDINGSWIJZE:
 
                 <button
                   type="button"
+                  onClick={() => setIsLabelModalOpen(true)}
+                  className="btn-metallic px-4 py-2 rounded-xl text-xs font-semibold text-slate-800 dark:text-slate-100 flex items-center gap-1.5 cursor-pointer shadow-xs border-emerald-400/40"
+                >
+                  <QrCode className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
+                  <span>Print Flesetiket (met QR-code)</span>
+                </button>
+
+                <button
+                  type="button"
                   onClick={handleCopyRecipeToClipboard}
-                  className="btn-metallic px-4 py-2 rounded-xl text-xs font-mono text-slate-700 flex items-center gap-1.5 cursor-pointer"
+                  className="btn-metallic px-3.5 py-2 rounded-xl text-xs font-mono text-slate-700 dark:text-slate-300 flex items-center gap-1.5 cursor-pointer"
                 >
                   {copiedFeedback ? (
                     <>
@@ -618,7 +667,7 @@ BEREIDINGSWIJZE:
                   ) : (
                     <>
                       <Copy className="w-3.5 h-3.5 text-slate-500" />
-                      <span>Kopieer Recept & Etiket</span>
+                      <span>Kopieer Recept &amp; Etiket</span>
                     </>
                   )}
                 </button>
@@ -745,6 +794,16 @@ BEREIDINGSWIJZE:
                 </div>
 
               </div>
+
+              {/* Interactive Fragrance Pyramid & Note Balance */}
+              <FragrancePyramid
+                title="Geurpiramide & Verdamping"
+                ingredients={calculatedFormula.ingredients.map((ing) => ({
+                  name: ing.name,
+                  noteType: (ing.noteType as "Top" | "Midden" | "Basis") || "Midden",
+                  drops: ing.drops,
+                }))}
+              />
 
               {/* Step-by-Step Preparation Guide */}
               <div className="glass-panel p-4 rounded-2xl space-y-2.5 text-xs text-slate-700">
@@ -1220,6 +1279,18 @@ BEREIDINGSWIJZE:
 
         </div>
       )}
+
+      {/* Printable Label & QR Code Modal */}
+      <PrintableLabelModal
+        isOpen={isLabelModalOpen}
+        onClose={() => setIsLabelModalOpen(false)}
+        recipeTitle={activeRecipeTitle}
+        bottleSizeMl={bottleSizeMl}
+        targetRoom={activeRecipeTargetRoom}
+        ingredients={calculatedFormula.ingredients}
+        alcoholMl={calculatedFormula.alcoholMl}
+        waterMl={calculatedFormula.distilledWaterMl}
+      />
 
     </div>
   );

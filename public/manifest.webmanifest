@@ -1,0 +1,37 @@
+{
+  "name": "Etherische Oliën Database & Roomspray Studio",
+  "short_name": "Oliën & Sprays",
+  "description": "Interactieve aromatherapie inventaris, synergie blender en roomspray calculator.",
+  "start_url": "/",
+  "id": "/",
+  "display": "standalone",
+  "background_color": "#0f172a",
+  "theme_color": "#1e1b4b",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/icon.svg",
+      "sizes": "192x192 512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["lifestyle", "health", "utilities"],
+  "shortcuts": [
+    {
+      "name": "Roomspray Studio",
+      "url": "/?tab=roomsprays",
+      "description": "Direct een roomspray mengen en berekenen"
+    },
+    {
+      "name": "Synergie Blends",
+      "url": "/?tab=synergies",
+      "description": "Diffuser recepten bekijken en maken"
+    },
+    {
+      "name": "Symptomenzoeker",
+      "url": "/?tab=symptoms",
+      "description": "Vind de juiste olie voor je stemming"
+    }
+  ]
+}

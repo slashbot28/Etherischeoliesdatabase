@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { EssentialOil, SUGGESTED_SYNERGIES } from "../data";
 import { Sparkles, Trash2, Droplet, AlertTriangle, BookOpen, Check, HelpCircle } from "lucide-react";
+import FragrancePyramid, { PyramidIngredient } from "./FragrancePyramid";
+import { findOilSubstitutes } from "../utils/substitutionEngine";
 
 interface SynergyBlendsProps {
   oils: EssentialOil[];
@@ -236,9 +238,24 @@ export default function SynergyBlends({
                     <div className="border-t border-slate-200/50 pt-3 text-[11px] text-slate-500 font-light italic space-y-1.5">
                       <p>“{syn.instructions}”</p>
                       {!canMakeNow && (
-                        <p className="text-amber-700 not-italic font-mono text-[10px]">
-                          ✦ Ontbrekend in collectie: {missingOils.map((m) => m.name).join(", ")}
-                        </p>
+                        <div className="space-y-1 pt-1 not-italic">
+                          <p className="text-amber-700 dark:text-amber-400 font-mono text-[10px]">
+                            ✦ Ontbrekend in collectie: {missingOils.map((m) => m.name).join(", ")}
+                          </p>
+                          {missingOils.map((missingItem) => {
+                            const fullOil = oils.find((o) => o.id === missingItem.id);
+                            if (!fullOil) return null;
+                            const subs = findOilSubstitutes(fullOil, oils);
+                            if (subs.length === 0) return null;
+                            const best = subs[0];
+                            return (
+                              <p key={missingItem.id} className="text-emerald-700 dark:text-emerald-400 font-mono text-[10px] flex items-center gap-1">
+                                <span>💡 Tip:</span>
+                                <span>Vervang {missingItem.name} door <strong>{best.oil.name}</strong> ({best.matchReasons[0]})</span>
+                              </p>
+                            );
+                          })}
+                        </div>
                       )}
                     </div>
                   </div>
@@ -465,55 +482,18 @@ export default function SynergyBlends({
               Moleculaire & Harmonische Analyse
             </h3>
 
-            {/* Note balance */}
-            <div className="glass-panel rounded-xl p-4 space-y-3">
-              <span className="block text-[10px] font-mono tracking-wider uppercase text-slate-500 font-medium">
-                Geurnoot Balans
-              </span>
-
-              <div className="space-y-2.5">
-                <div>
-                  <div className="flex justify-between text-[11px] text-slate-600 font-light mb-1">
-                    <span>Topnoot (Vluchtig)</span>
-                    <span className="font-mono">{Math.round(noteBreakdown.Top)}%</span>
-                  </div>
-                  <div className="h-1.5 bg-slate-200/60 rounded-full overflow-hidden">
-                    <div style={{ width: `${Math.min(100, noteBreakdown.Top)}%` }} className="h-full bg-amber-400 rounded-full" />
-                  </div>
-                </div>
-
-                <div>
-                  <div className="flex justify-between text-[11px] text-slate-600 font-light mb-1">
-                    <span>Middennoot (Hart)</span>
-                    <span className="font-mono">{Math.round(noteBreakdown.Midden)}%</span>
-                  </div>
-                  <div className="h-1.5 bg-slate-200/60 rounded-full overflow-hidden">
-                    <div style={{ width: `${Math.min(100, noteBreakdown.Midden)}%` }} className="h-full bg-slate-500 rounded-full" />
-                  </div>
-                </div>
-
-                <div>
-                  <div className="flex justify-between text-[11px] text-slate-600 font-light mb-1">
-                    <span>Basisnoot (Gronding)</span>
-                    <span className="font-mono">{Math.round(noteBreakdown.Basis)}%</span>
-                  </div>
-                  <div className="h-1.5 bg-slate-200/60 rounded-full overflow-hidden">
-                    <div style={{ width: `${Math.min(100, noteBreakdown.Basis)}%` }} className="h-full bg-slate-800 rounded-full" />
-                  </div>
-                </div>
-              </div>
-
-              {totalDrops > 0 && (
-                <div className="text-[10px] text-slate-500 font-light italic glass-panel p-2.5 rounded-lg leading-relaxed mt-2">
-                  <span className="font-medium text-slate-700 not-italic block mb-0.5">Diagnose:</span>
-                  {noteBreakdown.Top > 40
-                    ? "Dominantie in Topnoten: levendige energie, maar snellere verdamping. Voeg een Basisnoot toe ter fixatie."
-                    : noteBreakdown.Basis > 45
-                    ? "Hoge Basisnoot dichtheid: zware aarding. Voeg een frisse Topnoot toe voor meer vibratie."
-                    : "Uitstekend gewogen harmonische driehoek!"}
-                </div>
-              )}
-            </div>
+            {/* Interactive Fragrance Pyramid */}
+            <FragrancePyramid
+              title="Geurpiramide van je Diffuser Synergie"
+              ingredients={ingredients.map((ing) => {
+                const oil = oils.find((o) => o.id === ing.id);
+                return {
+                  name: oil?.name || "Olie",
+                  noteType: oil?.noteType || "Midden",
+                  drops: ing.drops,
+                };
+              })}
+            />
 
             {/* Safety analysis */}
             <div className="glass-panel rounded-xl p-4 space-y-2">
